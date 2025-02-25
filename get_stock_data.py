@@ -39,7 +39,10 @@ class Downloader(object):
     def run(self):
         stock_df = self.get_codes_by_date(self.date_end)
         for index, row in stock_df.iterrows():
-            print(f'processing {row["code"]} {row["code_name"]}')
+            # 当文件存在就跳过
+            if os.path.exists(f'{self.output_dir}/{row["code"]}.{row["code_name"]}.csv'):
+                continue
+            print(f'processing {self.output_dir}/{row["code"]} {row["code_name"]}')
             df_code = bs.query_history_k_data_plus(row["code"], self.fields,
                                                    start_date=self.date_start,
                                                    end_date=self.date_end).get_data()
@@ -54,6 +57,5 @@ if __name__ == '__main__':
     downloader.run()
 
     mkdir('./stockdata/test')
-    downloader = Downloader('./stockdata/test', date_start='2019-12-01', date_end='2019-12-31')
+    downloader = Downloader('./stockdata/test', date_start='2024-12-01', date_end='2025-02-20')
     downloader.run()
-
