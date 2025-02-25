@@ -89,6 +89,9 @@ reward = 1 if reward > 0 else reward = -100
 # 虚拟环境
 virtualenv -p python3.6 venv
 source ./venv/bin/activate
+# 或
+python3.6 -m venv mypy36env
+source mypy36env/bin/activate
 # 安装库依赖
 pip install -r requirements.txt
 ```
